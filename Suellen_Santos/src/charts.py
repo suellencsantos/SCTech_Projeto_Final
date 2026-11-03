@@ -8,6 +8,18 @@ import plotly.graph_objects as go
 from src.analysis import SERIES_META, linear_fit
 
 
+def _add_source(fig: go.Figure) -> go.Figure:
+    """Mantém a fonte no próprio gráfico, inclusive em exportações."""
+    fig.update_layout(margin_b=110)
+    fig.add_annotation(
+        text="Fonte: Banco Central do Brasil (BCB/DSTAT), SGS.<br>Elaboração própria com dados do período selecionado.",
+        xref="paper", yref="paper", x=0, y=-0.30,
+        xanchor="left", yanchor="top", showarrow=False, align="left",
+        font=dict(size=11, color="#475569"),
+    )
+    return fig
+
+
 def _base_layout(fig: go.Figure, title: str, y_title: str) -> go.Figure:
     fig.update_layout(
         title={"text": title, "x": 0.01, "xanchor": "left"},
@@ -24,7 +36,7 @@ def _base_layout(fig: go.Figure, title: str, y_title: str) -> go.Figure:
     )
     fig.update_xaxes(showgrid=False)
     fig.update_yaxes(gridcolor="#E8ECF2", zeroline=False)
-    return fig
+    return _add_source(fig)
 
 
 def time_series_chart(data: pd.DataFrame, columns: list[str], title: str, y_title: str) -> go.Figure:
@@ -95,7 +107,7 @@ def scatter_chart(data: pd.DataFrame, x_column: str, y_column: str) -> go.Figure
     )
     fig.update_xaxes(gridcolor="#EEF1F5")
     fig.update_yaxes(gridcolor="#EEF1F5")
-    return fig
+    return _add_source(fig)
 
 
 def lag_chart(lags: pd.DataFrame) -> go.Figure:
@@ -125,22 +137,29 @@ def lag_chart(lags: pd.DataFrame) -> go.Figure:
     )
     fig.update_xaxes(dtick=1, showgrid=False)
     fig.update_yaxes(range=[-1, 1], gridcolor="#EEF1F5")
-    return fig
+    return _add_source(fig)
 
 
 def annual_chart(data: pd.DataFrame, columns: list[str], title: str, y_title: str) -> go.Figure:
     fig = go.Figure()
+    labels = [
+        f"{int(row.ano)}" + ("*" if not row.ano_completo else "")
+        for row in data.itertuples()
+    ]
     for column in columns:
         meta = SERIES_META[column]
         fig.add_trace(
             go.Bar(
-                x=data["ano"],
+                x=labels,
                 y=data[column],
                 name=meta["rotulo_curto"],
                 marker_color=meta["cor"],
-                hovertemplate="%{x}<br>%{y:.2f}<extra>%{fullData.name}</extra>",
+                customdata=data["meses_observados"],
+                hovertemplate="%{x}<br>Média: %{y:.2f}<br>Meses observados: %{customdata}<extra>%{fullData.name}</extra>",
             )
         )
     fig.update_layout(barmode="group")
-    return _base_layout(fig, title, y_title)
+    fig = _base_layout(fig, title, y_title)
+    fig.update_xaxes(type="category", title_text="Ano (* período incompleto)")
+    return fig
 
