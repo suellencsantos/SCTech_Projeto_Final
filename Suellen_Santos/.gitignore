@@ -1,0 +1,22 @@
+# Ambientes e caches Python
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+
+# Segredos e configurações locais
+.env
+.streamlit/secrets.toml
+
+# IDE e sistema operacional
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Temporários do projeto
+tmp/
+*.log
+
