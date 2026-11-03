@@ -153,7 +153,7 @@ python -m src.data_pipeline --input caminho/arquivo.csv
 ## 11. Estrutura de pastas
 
 ```text
-.
+
 ├── .streamlit/
 │   └── config.toml
 ├── data/
