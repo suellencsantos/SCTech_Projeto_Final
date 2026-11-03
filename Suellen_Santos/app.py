@@ -188,8 +188,15 @@ for container, (column, title) in zip(kpi_columns, kpis):
         title,
         br_number(latest[column], f" {meta['unidade']}"),
         delta=None if pd.isna(delta) else f"{br_number(delta)} p.p. em 12 meses",
+        delta_color="inverse",
         help=f"Último valor disponível no filtro ({br_month(latest['data'])}).",
     )
+
+st.caption(
+    "Variação em 12 meses: diferença, em pontos percentuais, entre o último mês "
+    "e o mesmo mês do ano anterior dentro do filtro. São necessários pelo menos "
+    "13 meses selecionados; caso contrário, a comparação fica indisponível."
+)
 
 overview_tab, relation_tab, stats_tab, method_tab = st.tabs(
     ["Visão geral", "Relação e defasagem", "Estatísticas", "Dados e método"]
@@ -230,10 +237,16 @@ with overview_tab:
             width="stretch",
             config={"displaylogo": False},
         )
-        if not annual.iloc[-1]["ano_completo"]:
+        incomplete_years = annual.loc[~annual["ano_completo"]]
+        if not incomplete_years.empty:
+            coverage = "; ".join(
+                f"{int(row.ano)}: {int(row.meses_observados)} meses"
+                for row in incomplete_years.itertuples()
+            )
             st.caption(
-                f"A média de {int(annual.iloc[-1]['ano'])} usa apenas "
-                f"{int(annual.iloc[-1]['meses_observados'])} meses disponíveis."
+                "* Médias de anos incompletos no filtro: " + coverage
+                + ". Cada média usa somente os meses selecionados, sem projeção "
+                "para o ano inteiro; compare períodos com a mesma cobertura."
             )
 
 with relation_tab:
