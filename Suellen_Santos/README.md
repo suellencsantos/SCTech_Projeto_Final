@@ -1,8 +1,11 @@
 # Crédito às pessoas físicas: juros e inadimplência
 
-Aplicação de Business Intelligence desenvolvida em Python e Streamlit para acompanhar a evolução dos juros e da inadimplência do crédito livre às pessoas físicas no Brasil. O projeto usa quatro séries mensais públicas do Banco Central do Brasil (BCB), cobre janeiro de 2012 a agosto de 2026 e oferece filtros, indicadores, estatísticas descritivas, análise de correlação e comparação de defasagens.
+- **Curso:** Visualização de Dados e BI.
+- **Turma:** T1.
+- **Professor:** Rodrigo Garcia Brunini.
+- **Atividade:** Projeto Avaliativo do Módulo 2.
 
-> Status: aplicação e pipeline concluídos localmente. Os links de GitHub, Streamlit, Trello e vídeo devem ser preenchidos pelo responsável após a publicação.
+Aplicação de Business Intelligence desenvolvida em Python e Streamlit para acompanhar a evolução dos juros e da inadimplência do crédito livre às pessoas físicas no Brasil. O projeto usa quatro séries mensais públicas do Banco Central do Brasil (BCB), cobre janeiro de 2012 a agosto de 2026 e oferece filtros, indicadores, estatísticas descritivas, análise de correlação e comparação de defasagens.
 
 ## 1. Problema, objetivo e importância
 
@@ -26,12 +29,12 @@ Ficam fora do escopo: previsão, inferência causal, avaliação de consumidores
 
 Os dados são públicos, agregados e publicados pelo **Banco Central do Brasil - Departamento de Estatísticas**, no Sistema Gerenciador de Séries Temporais (SGS). O catálogo informa licença **Open Data Commons Open Database License (ODbL)**. Acesso consultado em 21 de outubro de 2026.
 
-| Código SGS | Série | Unidade | Catálogo oficial |
-|---|---|---|---|
-| 20748 | Juros - pessoas físicas - crédito pessoal total | % a.a. | [BCB](https://dadosabertos.bcb.gov.br/dataset/20748-taxa-media-de-juros-das-operacoes-de-credito-com-recursos-livres---pessoas-fisicas---credito-) |
-| 21112 | Inadimplência - pessoas físicas - total | % | [BCB](https://dadosabertos.bcb.gov.br/dataset/21112-inadimplencia-da-carteira-de-credito-com-recursos-livres---pessoas-fisicas---total) |
-| 21129 | Inadimplência - pessoas físicas - cartão de crédito total | % | [BCB](https://dadosabertos.bcb.gov.br/dataset/21129-inadimplencia-da-carteira-de-credito-com-recursos-livres---pessoas-fisicas---cartao-de-credit) |
-| 22024 | Juros - pessoas físicas - cartão de crédito total | % a.a. | [BCB](https://dadosabertos.bcb.gov.br/dataset/22024-taxa-media-de-juros-das-operacoes-de-credito-com-recursos-livres---pessoas-fisicas---cartao-d) |
+| Código SGS | Série                                                        | Unidade | Catálogo oficial                                                                                                                                 |
+| ----------- | ------------------------------------------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 20748       | Juros - pessoas físicas - crédito pessoal total             | % a.a.  | [BCB](https://dadosabertos.bcb.gov.br/dataset/20748-taxa-media-de-juros-das-operacoes-de-credito-com-recursos-livres---pessoas-fisicas---credito-) |
+| 21112       | Inadimplência - pessoas físicas - total                     | %       | [BCB](https://dadosabertos.bcb.gov.br/dataset/21112-inadimplencia-da-carteira-de-credito-com-recursos-livres---pessoas-fisicas---total)            |
+| 21129       | Inadimplência - pessoas físicas - cartão de crédito total | %       | [BCB](https://dadosabertos.bcb.gov.br/dataset/21129-inadimplencia-da-carteira-de-credito-com-recursos-livres---pessoas-fisicas---cartao-de-credit) |
+| 22024       | Juros - pessoas físicas - cartão de crédito total          | % a.a.  | [BCB](https://dadosabertos.bcb.gov.br/dataset/22024-taxa-media-de-juros-das-operacoes-de-credito-com-recursos-livres---pessoas-fisicas---cartao-d) |
 
 O arquivo foi obtido por download público no BCB-DSTAT e fornecido em CSV. Esse método é aceito pelo escopo do projeto por ser um arquivo público de fonte oficial com a forma de obtenção documentada. O pipeline preserva uma cópia bruta, a impressão digital SHA-256 e a identificação das séries. Não há dados pessoais, sensíveis ou credenciais.
 
@@ -100,7 +103,7 @@ O pipeline pode apoiar uma área de risco, planejamento ou inteligência de merc
 
 ## 9. Aplicação Streamlit
 
-**Deploy:** `INSERIR_LINK_DO_STREAMLIT`
+**Deploy:** [sctechprojetofinal-suellensantos.streamlit.app](https://sctechprojetofinal-suellensantos.streamlit.app/)
 
 Funcionalidades:
 
@@ -147,53 +150,34 @@ A aplicação usa caminhos relativos à raiz e não exige variáveis de ambiente
 python -m src.data_pipeline --input caminho/arquivo.csv
 ```
 
-## 11. Publicação no Streamlit Community Cloud
-
-1. Envie o projeto a um repositório GitHub autorizado para o deploy.
-2. Acesse [share.streamlit.io](https://share.streamlit.io/) e crie uma aplicação.
-3. Selecione o repositório, a branch e `app.py` como arquivo principal.
-4. Selecione Python 3.12 nas configurações avançadas.
-5. Publique, teste os filtros e confirme o acesso em uma janela anônima.
-6. Substitua o campo de deploy deste README pelo endereço final.
-
-O Streamlit Community Cloud executa a aplicação a partir da raiz do repositório; por isso os caminhos do projeto são relativos e o `requirements.txt` fica na raiz.
-
-## 12. Estrutura de pastas
+## 11. Estrutura de pastas
 
 ```text
 .
-├── app.py
-├── requirements.txt
-├── README.md
 ├── .streamlit/
 │   └── config.toml
 ├── data/
-│   ├── raw/
-│   │   └── bcb_series_credito_pf.csv
-│   └── processed/
-│       ├── credito_pf_mensal.csv
-│       └── etl_report.json
-├── docs/
-│   ├── checklist_entrega.md
-│   ├── dicionario_dados.md
-│   └── roteiro_video.md
+│   ├── processed/
+│   │   └── credito_pf_mensal.csv
+│	│		et_report.json
+│   └──── raw/
+│      └── bcb_series_credito_pf.csv
 ├── scripts/
 │   └── build_data.py
 ├── src/
 │   ├── analysis.py
 │   ├── charts.py
 │   └── data_pipeline.py
-└── tests/
-    └── test_pipeline.py
+│── tests/
+│   └── test_pipeline.py
+├── app.py
+├── requirements.txt
+├── README.md
 ```
 
 O CSV original fornecido pode permanecer na raiz para rastreabilidade; o ETL cria a cópia canônica em `data/raw/`.
 
-## 13. Estratégia de versionamento
-
-Sugestão de fluxo: manter `main` estável, desenvolver mudanças maiores em `develop` ou branches de funcionalidade e usar commits pequenos, no imperativo. Exemplos: `estrutura pipeline de ETL`, `adiciona análise de defasagem` e `documenta limitações das séries`.
-
-## 14. Limitações e melhorias futuras
+## 12. Limitações e melhorias futuras
 
 - o recorte termina em agosto de 2026 e o último ano está incompleto;
 - as quatro séries são agregadas e não permitem segmentar consumidores;
@@ -204,7 +188,7 @@ Sugestão de fluxo: manter `main` estável, desenvolver mudanças maiores em `de
 
 Melhorias: coleta via API do SGS, deflatores e variáveis macroeconômicas, testes de estacionariedade, modelos com defasagens distribuídas, detecção de quebras estruturais e alertas de atualização.
 
-## 15. Créditos e referências
+## 13. Créditos e referências
 
 - [Banco Central do Brasil - Portal de Dados Abertos](https://dadosabertos.bcb.gov.br/)
 - [Sistema Gerenciador de Séries Temporais - SGS](https://www3.bcb.gov.br/sgspub/)
@@ -214,15 +198,10 @@ Melhorias: coleta via API do SGS, deflatores e variáveis macroeconômicas, test
 
 Projeto acadêmico desenvolvido individualmente. Fontes, bibliotecas e decisões analíticas estão identificadas para permitir auditoria e reprodução.
 
-## 16. Links de entrega
+## 14. Links de entrega
 
-| Item | Link |
-|---|---|
-| Repositório pessoal | `INSERIR_LINK_DO_GITHUB` |
-| Aplicação publicada | `INSERIR_LINK_DO_STREAMLIT` |
-| Quadro de tarefas | `INSERIR_LINK_DO_TRELLO` |
-| Repositório oficial da turma | `INSERIR_LINK_DA_TURMA` |
-| Vídeo/publicação | `INSERIR_LINK_DO_VIDEO` |
-
-Antes da submissão, valide as regras administrativas, permissões e prazo comunicados pelo professor. O PDF de escopo informa que esses pontos ainda dependem da publicação oficial da coordenação.
-
+| Item                          | Link                                                                                                                                                                                                                              |
+| ----------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Repositório pessoal          | [github.com/suellencsantos/SCTech_Projeto_Final/tree/743a2e8e4c558c9fe0ee55a68b2d041fd7b81bb3/Suellen_Santos](https://github.com/suellencsantos/SCTech_Projeto_Final/tree/743a2e8e4c558c9fe0ee55a68b2d041fd7b81bb3/Suellen_Santos) |
+| Aplicação publicada         | [sctechprojetofinal-suellensantos.streamlit.app](https://sctechprojetofinal-suellensantos.streamlit.app/)                                                                                                                          |
+| Repositório oficial da turma | `INSERIR_LINK_DA_TURMA`                                                                                                                                                                                                         |
