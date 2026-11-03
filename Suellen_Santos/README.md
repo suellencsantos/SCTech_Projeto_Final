@@ -1,9 +1,13 @@
 # Crédito às pessoas físicas: juros e inadimplência
 
-- **Curso:** Visualização de Dados e BI.
+## Identificação acadêmica
+
+- **Curso/disciplina:** Visualização de Dados e BI.
 - **Turma:** T1.
 - **Professor:** Rodrigo Garcia Brunini.
-- **Atividade:** Projeto Avaliativo do Módulo 2.
+- **Atividade:** Projeto Avaliativo do Módulo 2 — Semana 13.
+
+Projeto desenvolvido como atividade avaliativa da disciplina, integrando tratamento de dados com Python, análise estatística, visualização e uma aplicação interativa de Business Intelligence em Streamlit.
 
 Aplicação de Business Intelligence desenvolvida em Python e Streamlit para acompanhar a evolução dos juros e da inadimplência do crédito livre às pessoas físicas no Brasil. O projeto usa quatro séries mensais públicas do Banco Central do Brasil (BCB), cobre janeiro de 2012 a agosto de 2026 e oferece filtros, indicadores, estatísticas descritivas, análise de correlação e comparação de defasagens.
 
@@ -116,11 +120,33 @@ Funcionalidades:
 - estatísticas descritivas, dicionário, metodologia e limitações;
 - download do recorte filtrado.
 
+### Como interpretar os gráficos e indicadores
+
+- **Linhas mensais:** acompanham a evolução dos juros (% ao ano) e da inadimplência (% da carteira). As unidades são diferentes e aparecem nos respectivos eixos.
+- **Médias anuais:** calculadas somente com os meses presentes no filtro. Todos os anos incompletos recebem um asterisco no eixo e um aviso com a quantidade de meses; o valor não é uma projeção anual. Compare períodos com cobertura semelhante.
+- **Dispersão:** cada ponto representa um mês. A linha pontilhada resume a associação linear e não demonstra causalidade.
+- **Defasagem:** compara juros no mês `t` com inadimplência em `t + k`. As barras indicam correlações exploratórias, e a quantidade de pares diminui à medida que a defasagem aumenta.
+- **Variação em 12 meses:** diferença em pontos percentuais entre o último mês selecionado e o mesmo mês do ano anterior. Exige pelo menos 13 observações mensais no filtro; em recortes menores, a comparação fica indisponível. A variação no período compara o primeiro e o último mês selecionados.
+- **Cores das variações:** aumentos de juros ou inadimplência aparecem em vermelho e reduções em verde. A cor apenas destaca a direção do indicador e não constitui recomendação financeira.
+
+A fonte Banco Central do Brasil (BCB/DSTAT), SGS, acompanha cada gráfico, inclusive nas exportações de imagem pelo Plotly. Resultados, médias, correlações e estatísticas respeitam o período filtrado.
+
 ## 10. Como executar
 
-Pré-requisitos: Git e Python 3.12.
+Pré-requisitos: Git e Python 3.13 (64 bits). Execute os comandos dentro da pasta `Suellen_Santos`.
+
+Crie o ambiente virtual no computador em que o projeto será executado. Não copie a pasta `.venv` entre instalações ou versões do Python; instale as dependências pelo `requirements.txt`. Para o deploy, selecione Python 3.13 para acompanhar a versão do ambiente local.
+
+Depois de clonar o repositório da turma, entre na pasta do projeto:
+
+```powershell
+Set-Location "Projetos/Projeto_Final_do_Curso/Suellen_Santos"
+```
+
+No clone do repositório pessoal, entre em `Suellen_Santos`. Os comandos seguintes devem ser executados na pasta que contém `app.py` e `requirements.txt`.
 
 ```bash
+python --version
 python -m venv .venv
 ```
 
@@ -129,6 +155,7 @@ No Windows PowerShell:
 ```powershell
 .venv\Scripts\Activate.ps1
 python -m pip install -r requirements.txt
+python -m pip check
 python -m src.data_pipeline
 python -m unittest discover -s tests -v
 streamlit run app.py
@@ -139,6 +166,7 @@ No Linux ou macOS:
 ```bash
 source .venv/bin/activate
 python -m pip install -r requirements.txt
+python -m pip check
 python -m src.data_pipeline
 python -m unittest discover -s tests -v
 streamlit run app.py
@@ -153,31 +181,42 @@ python -m src.data_pipeline --input caminho/arquivo.csv
 ## 11. Estrutura de pastas
 
 ```text
-
+.
 ├── .streamlit/
 │   └── config.toml
 ├── data/
 │   ├── processed/
-│   │   └── credito_pf_mensal.csv
-│	│		et_report.json
-│   └──── raw/
-│      └── bcb_series_credito_pf.csv
+│   │   ├── credito_pf_mensal.csv
+│   │   └── etl_report.json
+│   └── raw/
+│       └── bcb_series_credito_pf.csv
 ├── scripts/
 │   └── build_data.py
 ├── src/
 │   ├── analysis.py
 │   ├── charts.py
 │   └── data_pipeline.py
-│── tests/
+├── tests/
+│   ├── __init__.py
 │   └── test_pipeline.py
+├── .env.example
+├── .gitignore
 ├── app.py
 ├── requirements.txt
-├── README.md
+└── README.md
 ```
 
 O CSV original fornecido pode permanecer na raiz para rastreabilidade; o ETL cria a cópia canônica em `data/raw/`.
 
-## 12. Limitações e melhorias futuras
+## 12. Versionamento e publicação
+
+O projeto mantém um repositório pessoal e uma cópia na pasta `Projetos/Projeto_Final_do_Curso/Suellen_Santos` do repositório da turma. O histórico desta pasta registra a inclusão do projeto e atualizações do README. As alterações devem ser registradas em commits com mensagens que descrevam o trabalho realizado, seguindo o fluxo de colaboração definido para cada repositório.
+
+O `.gitignore` exclui ambientes virtuais, caches, arquivos temporários e configurações com segredos. A pasta `.venv` é local e não faz parte da entrega. Ao preparar commits no repositório da turma, selecione somente os arquivos deste projeto e confira o diff antes do envio.
+
+Para configurar um deploy a partir do repositório da turma, o arquivo principal é `Projetos/Projeto_Final_do_Curso/Suellen_Santos/app.py`. No repositório pessoal, é `Suellen_Santos/app.py`. O endereço do deploy já informado neste documento foi preservado; confirme o repositório e a branch associados no painel do Streamlit antes de atualizar a aplicação.
+
+## 13. Limitações e melhorias futuras
 
 - o recorte termina em agosto de 2026 e o último ano está incompleto;
 - as quatro séries são agregadas e não permitem segmentar consumidores;
@@ -188,7 +227,7 @@ O CSV original fornecido pode permanecer na raiz para rastreabilidade; o ETL cri
 
 Melhorias: coleta via API do SGS, deflatores e variáveis macroeconômicas, testes de estacionariedade, modelos com defasagens distribuídas, detecção de quebras estruturais e alertas de atualização.
 
-## 13. Créditos e referências
+## 14. Créditos e referências
 
 - [Banco Central do Brasil - Portal de Dados Abertos](https://dadosabertos.bcb.gov.br/)
 - [Sistema Gerenciador de Séries Temporais - SGS](https://www3.bcb.gov.br/sgspub/)
@@ -198,10 +237,23 @@ Melhorias: coleta via API do SGS, deflatores e variáveis macroeconômicas, test
 
 Projeto acadêmico desenvolvido individualmente. Fontes, bibliotecas e decisões analíticas estão identificadas para permitir auditoria e reprodução.
 
-## 14. Links de entrega
+## 15. Links de entrega
 
-| Item                          | Link                                                                                                                                                                                                                              |
-| ----------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Repositório pessoal          | [github.com/suellencsantos/SCTech_Projeto_Final/tree/743a2e8e4c558c9fe0ee55a68b2d041fd7b81bb3/Suellen_Santos](https://github.com/suellencsantos/SCTech_Projeto_Final/tree/743a2e8e4c558c9fe0ee55a68b2d041fd7b81bb3/Suellen_Santos) |
-| Aplicação publicada         | [sctechprojetofinal-suellensantos.streamlit.app](https://sctechprojetofinal-suellensantos.streamlit.app/)                                                                                                                          |
-| Repositório oficial da turma | `INSERIR_LINK_DA_TURMA`                                                                                                                                                                                                         |
+| Item                          | Link                                                                                                                                                                                                                                                                                              |
+| ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Repositório pessoal          | [github.com/suellencsantos/SCTech_Projeto_Final.git](https://github.com/suellencsantos/SCTech_Projeto_Final.git)                                                                                                                                                                                   |
+| Aplicação publicada         | [sctechprojetofinal-suellensantos.streamlit.app](https://sctechprojetofinal-suellensantos.streamlit.app/)                                                                                                                                                                                          |
+| Repositório oficial da turma | [github.com/Visualizacao-Dados-BI-T1/Projeto_ZP/tree/2aef8bd6e4fab658ea967dafb7fec7c39fbe617b/Projetos/Projeto_Final_do_Curso/Suellen_Santos](https://github.com/Visualizacao-Dados-BI-T1/Projeto_ZP/tree/2aef8bd6e4fab658ea967dafb7fec7c39fbe617b/Projetos/Projeto_Final_do_Curso/Suellen_Santos) |
+
+O link da turma acima preserva a versão já informada. Para acompanhar as atualizações da branch principal, consulte também a [pasta do projeto em main](https://github.com/Visualizacao-Dados-BI-T1/Projeto_ZP/tree/main/Projetos/Projeto_Final_do_Curso/Suellen_Santos).
+
+Itens complementares de entrega (endereços ainda não informados neste README):
+
+| Item | Situação |
+|---|---|
+| Quadro de tarefas | Adicionar o endereço e conferir a permissão de acesso do avaliador. |
+| Vídeo no Google Drive | Adicionar o link com acesso de leitor para qualquer pessoa com o endereço. |
+| Publicação social | Adicionar o link do vídeo de até 3 minutos com as marcações do professor, LAB365, SENAI Santa Catarina e FIESC. |
+| Submissão no AVA | Registrar os links exigidos e conferir a confirmação de envio. |
+
+Esses itens seguem as exigências do PDF oficial do Projeto Avaliativo do Módulo 2. O preenchimento desta documentação não comprova a realização das etapas externas; confirme sua conclusão e eventuais orientações posteriores do professor no AVA.
