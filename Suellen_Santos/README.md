@@ -244,16 +244,3 @@ Projeto acadêmico desenvolvido individualmente. Fontes, bibliotecas e decisões
 | Repositório pessoal          | [github.com/suellencsantos/SCTech_Projeto_Final.git](https://github.com/suellencsantos/SCTech_Projeto_Final.git)                                                                                                                                                                                   |
 | Aplicação publicada         | [sctechprojetofinal-suellensantos.streamlit.app](https://sctechprojetofinal-suellensantos.streamlit.app/)                                                                                                                                                                                          |
 | Repositório oficial da turma | [github.com/Visualizacao-Dados-BI-T1/Projeto_ZP/tree/2aef8bd6e4fab658ea967dafb7fec7c39fbe617b/Projetos/Projeto_Final_do_Curso/Suellen_Santos](https://github.com/Visualizacao-Dados-BI-T1/Projeto_ZP/tree/2aef8bd6e4fab658ea967dafb7fec7c39fbe617b/Projetos/Projeto_Final_do_Curso/Suellen_Santos) |
-
-O link da turma acima preserva a versão já informada. Para acompanhar as atualizações da branch principal, consulte também a [pasta do projeto em main](https://github.com/Visualizacao-Dados-BI-T1/Projeto_ZP/tree/main/Projetos/Projeto_Final_do_Curso/Suellen_Santos).
-
-Itens complementares de entrega (endereços ainda não informados neste README):
-
-| Item | Situação |
-|---|---|
-| Quadro de tarefas | Adicionar o endereço e conferir a permissão de acesso do avaliador. |
-| Vídeo no Google Drive | Adicionar o link com acesso de leitor para qualquer pessoa com o endereço. |
-| Publicação social | Adicionar o link do vídeo de até 3 minutos com as marcações do professor, LAB365, SENAI Santa Catarina e FIESC. |
-| Submissão no AVA | Registrar os links exigidos e conferir a confirmação de envio. |
-
-Esses itens seguem as exigências do PDF oficial do Projeto Avaliativo do Módulo 2. O preenchimento desta documentação não comprova a realização das etapas externas; confirme sua conclusão e eventuais orientações posteriores do professor no AVA.
